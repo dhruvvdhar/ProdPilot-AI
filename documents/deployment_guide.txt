@@ -1,0 +1,45 @@
+DEPLOYMENT GUIDE
+
+Pipeline
+
+GitHub
+
+↓
+
+Jenkins
+
+↓
+
+Docker Build
+
+↓
+
+Docker Push
+
+↓
+
+Helm Deploy
+
+↓
+
+Kubernetes
+
+Deployment Commands
+
+helm upgrade payment ./chart
+
+kubectl rollout status deployment payment-service
+
+Rollback
+
+kubectl rollout undo deployment payment-service
+
+Verification
+
+Smoke Tests
+
+API Health
+
+Metrics
+
+Grafana Dashboard

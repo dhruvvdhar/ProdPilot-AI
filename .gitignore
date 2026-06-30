@@ -1,0 +1,31 @@
+# Virtual Environment
+venv/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+
+# Environment Variables
+.env
+.env.*
+
+# ChromaDB
+Database/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Ruff
+.ruff_cache/
+
+# Pytest
+.pytest_cache/
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log

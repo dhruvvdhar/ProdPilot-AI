@@ -1,0 +1,33 @@
+INCIDENT REPORT
+
+Title
+
+502 Bad Gateway
+
+Symptoms
+
+Users received 502
+
+API unavailable
+
+Root Cause
+
+Backend pods unavailable
+
+Investigation
+
+kubectl get pods
+
+kubectl logs nginx
+
+Resolution
+
+Restart backend deployment
+
+Increase replicas
+
+Verification
+
+HTTP 200
+
+Latency below 100ms

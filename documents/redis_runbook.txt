@@ -1,0 +1,43 @@
+REDIS RUNBOOK
+
+Symptoms
+
+High latency
+
+Connection refused
+
+OOM
+
+Connection pool exhausted
+
+Health Check
+
+redis-cli ping
+
+Memory
+
+INFO memory
+
+Clients
+
+INFO clients
+
+Restart
+
+systemctl restart redis
+
+Common Cause
+
+Memory limit reached
+
+Too many client connections
+
+Resolution
+
+Increase maxmemory
+
+Increase connection pool
+
+Monitor memory usage
+
+Configure alerts

@@ -1,0 +1,33 @@
+POSTMORTEM
+
+Incident
+
+Payment API outage
+
+Duration
+
+32 minutes
+
+Impact
+
+Customers unable to complete payment
+
+Root Cause
+
+Redis connection pool exhausted
+
+Actions Taken
+
+Restart Redis
+
+Increase pool size
+
+Deploy monitoring
+
+Lessons Learned
+
+Improve alerts
+
+Autoscale Redis
+
+Review timeout settings

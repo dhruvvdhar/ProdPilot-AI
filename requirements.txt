@@ -1,0 +1,22 @@
+# LangChain document loaders
+langchain-community
+langchain-core
+langchain-chroma
+langchain_ChatGroq
+
+# PDF reading
+pypdf
+
+paddleocr==2.9.1
+paddlepaddle==2.6.2
+Pillow==11.3.0
+opencv-python
+
+
+# Embedding Models
+sentence-transformers
+
+# Torch backend (required by sentence-transformers)
+torch
+
+chromadb

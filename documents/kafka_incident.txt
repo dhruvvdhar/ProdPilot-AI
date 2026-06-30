@@ -1,0 +1,35 @@
+INCIDENT REPORT
+
+Title
+
+Kafka Consumer Lag
+
+Symptoms
+
+Messages not processed
+
+Consumer lag increasing
+
+Payment delay
+
+Root Cause
+
+Consumer pod crashed
+
+Resolution
+
+Restart consumer deployment
+
+Scale consumers from 2 to 5
+
+Verification
+
+Consumer lag returned to zero
+
+Messages processed successfully
+
+Prevention
+
+Configure HPA
+
+Monitor consumer lag
