@@ -2,7 +2,6 @@
 langchain-community
 langchain-core
 langchain-chroma
-langchain_ChatGroq
 
 # PDF reading
 pypdf
@@ -20,3 +19,16 @@ sentence-transformers
 torch
 
 chromadb
+
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+alembic
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+pydantic-settings
+
+pytest
+pytest-mock
