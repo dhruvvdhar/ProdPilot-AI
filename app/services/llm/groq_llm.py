@@ -9,7 +9,7 @@ Author: Dhruv
 
 from langchain_groq import ChatGroq
 
-from app.core.config import Settings
+from app.core.config import settings
 from app.services.llm.base_llm import BaseLLMService
 
 
@@ -24,16 +24,16 @@ class GroqLLMService(BaseLLMService):
 
         if GroqLLMService._llm is None:
 
-            if not Settings.GROQ_API_KEY:
+            if not settings.GROQ_API_KEY:
                 raise ValueError(
                     "GROQ_API_KEY is missing."
                 )
 
             GroqLLMService._llm = ChatGroq(
-                api_key=Settings.GROQ_API_KEY,
-                model=Settings.LLM_MODEL,
-                temperature=Settings.TEMPERATURE,
-                max_tokens=Settings.MAX_TOKENS,
+                api_key=settings.GROQ_API_KEY,
+                model=settings.LLM_MODEL,
+                temperature=settings.TEMPERATURE,
+                max_tokens=settings.MAX_TOKENS,
             )
 
     @property

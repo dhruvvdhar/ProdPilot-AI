@@ -74,3 +74,27 @@ class InvalidPasswordException(AuthenticationException):
     def __init__(self, errors: list[str]):
         self.errors = errors
         super().__init__("Password validation failed.")
+
+
+
+# ======================================================
+# Document Exceptions
+# ======================================================
+
+class InvalidFileException(ProdPilotException):
+    """Raised when uploaded file validation fails."""
+
+
+
+class DocumentNotFoundException(
+    ProdPilotException
+):
+    """
+    Document not found.
+    """
+
+    def __init__(
+        self,
+        message: str = "Document not found.",
+    ):
+        super().__init__(message)

@@ -16,7 +16,7 @@ from app.services.embedding.sentence_transformer_embedding import (
     SentenceTransformerEmbeddingService,
 )
 from app.services.vectorstore.chroma_service import ChromaService
-from app.core.config import Settings
+from app.core.config import settings
 
 
 class RetrieverService:
@@ -68,7 +68,7 @@ class RetrieverService:
             retrieved_distances,
         ):
 
-            if distance > Settings.SIMILARITY_THRESHOLD:
+            if distance > settings.SIMILARITY_THRESHOLD:
                 continue
 
             metadata = dict(metadata)

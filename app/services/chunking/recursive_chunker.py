@@ -22,7 +22,7 @@ from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.services.chunking.base_chunker import BaseChunker
-from app.core.config import Settings
+from app.core.config import settings
 
 
 class RecursiveChunkerService(BaseChunker):
@@ -48,8 +48,8 @@ class RecursiveChunkerService(BaseChunker):
         """
 
         self._text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=Settings.CHUNK_SIZE,
-            chunk_overlap=Settings.CHUNK_OVERLAP
+            chunk_size=settings.CHUNK_SIZE,
+            chunk_overlap=settings.CHUNK_OVERLAP
         )
 
     def split_documents(

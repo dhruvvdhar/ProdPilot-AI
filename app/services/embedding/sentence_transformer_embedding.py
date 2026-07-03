@@ -11,7 +11,7 @@ from typing import List
 
 from sentence_transformers import SentenceTransformer
 
-from app.core.config import Settings
+from app.core.config import settings
 from app.services.embedding.base_embedding import BaseEmbeddingService
 
 
@@ -24,7 +24,7 @@ class SentenceTransformerEmbeddingService(BaseEmbeddingService):
 
     def __init__(
         self,
-        model_name: str = Settings.EMBEDDING_MODEL,
+        model_name: str = settings.EMBEDDING_MODEL,
     ) -> None:
 
         if SentenceTransformerEmbeddingService._model is None:
