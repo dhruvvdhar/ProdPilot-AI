@@ -186,18 +186,3 @@ class IngestionService:
         )
 
         return len(results["ids"]) > 0
-    
-
-    # def clear_database(self) -> None:
-    #     """
-    #     Remove every document from the vector database.
-    #     """
-
-    #     existing = self._chroma.collection.get()
-
-    #     if existing["ids"]:
-    #         self._chroma.collection.delete(
-    #             ids=existing["ids"]
-    #         )
-
-    #     print("Vector database cleared.")

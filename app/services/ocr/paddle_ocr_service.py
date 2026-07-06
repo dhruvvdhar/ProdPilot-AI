@@ -17,12 +17,14 @@ Design Decisions:
 
 Author: Dhruv
 """
-
+import cv2
+from matplotlib import image
+from matplotlib.pyplot import gray
+import numpy as np
 from pathlib import Path
-
 from paddleocr import PaddleOCR
-
 from app.services.ocr.base_ocr import BaseOCR
+
 
 
 class PaddleOCRService(BaseOCR):
@@ -50,6 +52,24 @@ class PaddleOCRService(BaseOCR):
                 lang="en",
             )
 
+    def _preprocess_image(self, image_path: str):
+        image = cv2.imread(image_path)
+
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+        gray = cv2.fastNlMeansDenoising(gray)
+
+        gray = cv2.adaptiveThreshold(
+            gray,
+            255,
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+            cv2.THRESH_BINARY,
+            11,
+            2,
+        )
+
+        return gray
+
     def extract_text(self, image_path: str) -> str:
         """
         Extract text from an image.
@@ -76,12 +96,14 @@ class PaddleOCRService(BaseOCR):
                 f"Image not found: {image_path}"
             )
 
+        processed = self._preprocess_image(str(image))
+
         result = PaddleOCRService._ocr_model.ocr(
-            str(image),
+            processed,
             cls=True,
         )
 
-        extracted_lines = []
+        ocr_blocks = []
 
         # PaddleOCR returns:
         #
@@ -97,10 +119,25 @@ class PaddleOCRService(BaseOCR):
         #
         # We only care about the detected text.
 
-        for line in result[0]:
-            extracted_lines.append(line[1][0])
+        for block in result[0]:
+            box = block[0]
+            text = block[1][0]
+            confidence = block[1][1]
 
-        extracted_text = "\n".join(extracted_lines).strip()
+            if confidence < 0.50:
+                continue
+
+            y = min(point[1] for point in box)
+            x = min(point[0] for point in box)
+
+            ocr_blocks.append((y, x, text))
+
+        ocr_blocks.sort(key=lambda item: (item[0], item[1]))
+
+        extracted_text = "\n".join(
+            block[2]
+            for block in ocr_blocks
+        ).strip()
 
         if not extracted_text:
             raise ValueError(

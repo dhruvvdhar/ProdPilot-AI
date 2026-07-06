@@ -80,5 +80,30 @@ class RetrieverService:
                     metadata=metadata,
                 )
             )
+    
 
         return documents
+    
+
+    def similarity_score(
+        self,
+        query: str,
+    ) -> float:
+
+        query_embedding = (
+            self._embedding_service.embed_query(query)
+        )
+
+        results = self._chroma_service.collection.query(
+            query_embeddings=[query_embedding],
+            n_results=1,
+            include=["distances"],
+        )
+
+        distances = results["distances"][0]
+
+        if not distances:
+            return float("inf")
+
+        return distances[0]
+    

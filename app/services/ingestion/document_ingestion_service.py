@@ -24,6 +24,9 @@ from app.services.registry.loader_registry import (
 from app.services.vectorstore.chroma_service import (
     ChromaService,
 )
+from app.services.hybrid_search.bm25_service import (
+    bm25_service,
+)
 
 
 class DocumentIngestionService:
@@ -214,6 +217,21 @@ class DocumentIngestionService:
                 embeddings=embeddings,
             )
         )
+
+        for index, chunk in enumerate(chunks):
+            chunk.metadata["user_id"] = document.uploaded_by
+            chunk.metadata["document_id"] = document.id
+            chunk.metadata["filename"] = document.filename
+            chunk.metadata["file_path"] = str(
+                Path(document.file_path).resolve()
+            )
+            chunk.metadata["chunk_number"] = index
+
+        bm25_service.add_documents(
+            chunks
+        )
+
+        bm25_service.save_index()
 
         return vector_count
 

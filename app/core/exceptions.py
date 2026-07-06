@@ -98,3 +98,17 @@ class DocumentNotFoundException(
         message: str = "Document not found.",
     ):
         super().__init__(message)
+
+
+
+# ======================================================
+# Conversation Exceptions
+# ======================================================
+
+
+class ConversationNotFoundException(
+    ProdPilotException
+):
+    """
+    Conversation not found.
+    """

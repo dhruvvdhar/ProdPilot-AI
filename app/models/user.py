@@ -18,4 +18,10 @@ class User(Base):
     "Document",
     back_populates="owner",
     cascade="all, delete-orphan",
-)
+    )
+
+    conversations = relationship(
+        "Conversation",
+        back_populates="owner",
+        cascade="all, delete-orphan",
+    )

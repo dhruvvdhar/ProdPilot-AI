@@ -36,6 +36,9 @@ Rules:
 
 9. Keep answers concise, accurate, and technically precise.
 
+Conversation History:
+{history}
+
 Context:
 {context}
 

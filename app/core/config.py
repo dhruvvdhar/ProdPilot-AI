@@ -60,6 +60,8 @@ class Settings(BaseSettings):
 
     EMBEDDING_MODEL: str = "BAAI/bge-small-en-v1.5"
 
+    RERANKER_MODEL: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
     # ======================================================
     # LLM Configuration
     # ======================================================
@@ -76,9 +78,26 @@ class Settings(BaseSettings):
     # Retrieval
     # ======================================================
 
-    TOP_K: int = 4
+    TOP_K: int = 15
 
     SIMILARITY_THRESHOLD: float = 0.70
+    
+    RERANK_TOP_K: int = 5
 
+
+    # Guardrails
+    MAX_QUERY_LENGTH: int = 1000
+
+    MIN_QUERY_LENGTH: int = 2
+
+    OFF_TOPIC_SIMILARITY_THRESHOLD: float = 0.35
+
+
+    BM25_TOP_K: int = 8
+    DENSE_TOP_K: int = 15
+
+    BM25_INDEX_PATH: str = (
+    "app/storage/bm25/bm25_index.pkl"
+    )
 
 settings = Settings()
