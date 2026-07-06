@@ -1,0 +1,38 @@
+Frontend
+      │
+FastAPI
+
+├── Authentication
+├── Chat API
+├── Upload API
+├── Admin API
+
+↓
+
+Services
+
+├── OCR Service
+├── Loader Services
+├── Chunk Service
+├── Embedding Service
+├── Vector Store
+├── BM25 Index
+├── Hybrid Retriever
+├── Cross Encoder Reranker
+├── Prompt Builder
+├── Guardrails
+└── RAG Service
+
+↓
+
+Storage
+
+├── ChromaDB
+├── BM25 Index
+└── Uploaded Files
+
+↓
+
+LLM
+
+Groq

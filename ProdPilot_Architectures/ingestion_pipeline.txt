@@ -1,0 +1,31 @@
+                Upload Document
+                       │
+                       ▼
+            Loader Factory Service
+                       │
+     ┌───────────┬───────────┬───────────┐
+     │           │           │           │
+     ▼           ▼           ▼           ▼
+ PDF Loader   TXT Loader  Image Loader  Log Loader
+                               │
+                               ▼
+                      PaddleOCR Service
+                               │
+                      Image Preprocessing
+                               │
+                      OCR Text Extraction
+                               │
+                               ▼
+                    LangChain Documents
+                               │
+                               ▼
+                      Text Chunk Service
+                               │
+                               ▼
+                  Embedding Generation
+                               │
+                     BGE-small Embeddings
+                               │
+               ┌───────────────┴───────────────┐
+               ▼                               ▼
+        Chroma Vector DB                 BM25 Index

@@ -1,0 +1,43 @@
+User Question
+      │
+      ▼
+FastAPI Endpoint
+      │
+      ▼
+RAGService.ask()
+      │
+      ▼
+Query Validation
+      │
+      ▼
+Hybrid Retriever
+      │
+ ┌────┴───────────────┐
+ │                    │
+ ▼                    ▼
+Dense Search      BM25 Search
+ │                    │
+ └────────┬───────────┘
+          ▼
+ Merge Results
+          │
+          ▼
+CrossEncoder Reranker
+          │
+          ▼
+Top-K Context
+          │
+          ▼
+Prompt Builder
+          │
+          ▼
+LLM (Groq)
+          │
+          ▼
+Answer Validation
+          │
+          ▼
+Citations Builder
+          │
+          ▼
+JSON Response

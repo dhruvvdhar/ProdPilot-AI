@@ -1,220 +1,359 @@
 # 🚀 ProdPilot AI
 
-> **AI-Powered Production Support Platform**
+> **Enterprise AI-Powered Production Support Platform**
 >
-> An enterprise-grade AI assistant that combines Retrieval-Augmented Generation (RAG) with Agentic AI workflows to help engineers troubleshoot production incidents, retrieve operational knowledge, and automate production support.
+> ProdPilot AI is an enterprise-grade AI platform that helps engineers troubleshoot production incidents using Retrieval-Augmented Generation (RAG), Hybrid Search, OCR, and grounded AI responses.
 
 ---
 
-## 🚧 Project Status
+# 🚧 Project Status
 
-**Current Stable Release:** `v1.0`
+## Current Development Version
 
-✅ Production RAG Assistant Completed
+**Version 2.0 (In Progress)**
 
-**Currently Developing:** `v2.0`
+### ✅ Completed
 
-- Multi-user SaaS Platform
-- Authentication & Authorization
-- LangGraph Memory
-- Chat Management
+- Enterprise RAG Pipeline
+- Multi-user Backend
+- JWT Authentication
+- Chat Management APIs
+- Hybrid Search (Dense + BM25)
+- Cross-Encoder Reranking
+- OCR Pipeline with Image Preprocessing
+- Evaluation Framework
+- Production Benchmarking
+
+### 🚧 Currently Building
+
 - React Frontend
-- Docker Deployment
+- Docker Containerization
+- Responsive Chat Experience
+- Production Dashboard
 
 ---
 
-## 📖 Overview
+# 📖 Overview
 
-ProdPilot AI is an AI-powered Production Support platform designed to assist DevOps engineers, SREs, Platform Engineers, and Production Support teams in diagnosing production incidents through natural language conversations.
+ProdPilot AI is an AI-powered Production Support Platform built to assist DevOps Engineers, SREs, Platform Engineers, and Production Support teams during incident investigation.
 
-The platform allows users to upload production artifacts—including runbooks, logs, PDFs, architecture diagrams, and screenshots—and leverages semantic search, vector embeddings, OCR, and Retrieval-Augmented Generation (RAG) to generate grounded, context-aware responses.
+The platform allows users to upload production artifacts such as:
 
-Future versions introduce Agentic AI workflows using LangGraph, enabling users to switch between Knowledge Mode (RAG) and Agent Mode for intelligent reasoning, tool calling, and real-time production operations.
+- Runbooks
+- Production Logs
+- PDFs
+- Architecture Diagrams
+- Dashboards
+- Screenshots
+
+ProdPilot AI extracts knowledge from these documents, stores it in a vector database, retrieves the most relevant context using Hybrid Search, reranks retrieved documents, and generates grounded responses with citations.
+
+The long-term vision is to evolve ProdPilot AI into an Agentic AI Production Support Platform capable of autonomous investigation and tool execution.
 
 ---
 
 # ✨ Features
 
-## Version 1.0
+## AI & RAG
 
-- 📄 PDF document ingestion
-- 📝 TXT document ingestion
-- 📜 Log file ingestion
-- 🖼 OCR-based image ingestion
-- 🔍 Semantic Search
-- 🧠 Retrieval-Augmented Generation (RAG)
-- ⚡ LangChain Expression Language (LCEL)
-- 🗂 ChromaDB Vector Database
-- 🤖 Groq LLM Integration
-- 🎯 Grounded AI Responses
-- 🏗 Modular Service Architecture
+- Retrieval-Augmented Generation (RAG)
+- Hybrid Search (Dense + BM25)
+- Cross-Encoder Reranking
+- Semantic Search
+- Prompt Engineering
+- Grounded AI Responses
+- Context-aware Retrieval
+- Source Citations
 
 ---
 
-## Planned for Version 2
+## Document Processing
 
-- 🔐 JWT Authentication
-- 👤 Multi-user Platform
-- 💬 Chat Management
-- 🧠 LangGraph Conversation Memory
-- 📂 User-specific Document Storage
-- 🌐 React Frontend
-- 🐳 Docker Deployment
-- ⚡ Streaming Responses
+- PDF Ingestion
+- TXT Ingestion
+- Log File Ingestion
+- OCR-based Image Ingestion
+- OpenCV Image Preprocessing
+- Architecture Diagram Understanding
+- Dashboard Screenshot Understanding
 
 ---
 
-## Planned for Future Versions
+## Backend
 
-- 🤖 Agent Mode
-- 🔧 Tool Calling
-- ☸ Kubernetes Integration
-- 📈 Grafana Integration
-- 📊 Prometheus Integration
-- ☁ Cloud Integrations
-- 📑 Automated Incident Investigation
-- 🔄 Autonomous Production Support Workflows
+- FastAPI
+- JWT Authentication
+- Multi-user Support
+- Chat Management
+- Conversation History
+- Modular Service Architecture
+- REST APIs
+
+---
+
+## Evaluation Framework
+
+- LangSmith Evaluation
+- Retrieval Evaluation
+- Citation Evaluation
+- Answer Accuracy Evaluation
+- Hallucination Detection
+- Latency Benchmarking
+- Error Rate Tracking
 
 ---
 
 # 🏗 High-Level Architecture
 
+```text
+                         User
+                           │
+                           ▼
+                   React Frontend (V2)
+                           │
+                           ▼
+                     FastAPI Backend
+                           │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+        ▼                  ▼                  ▼
+ Authentication      Chat Manager      Upload Manager
+        │                  │                  │
+        └──────────────────┼──────────────────┘
+                           │
+                           ▼
+                  Document Ingestion Pipeline
+                           │
+      ┌──────────────┬──────────────┬──────────────┐
+      ▼              ▼              ▼              ▼
+     PDF            TXT            Logs          Images
+                                                  │
+                                                  ▼
+                                         OpenCV Preprocessing
+                                                  │
+                                                  ▼
+                                             PaddleOCR
+                                                  │
+                                                  ▼
+                                           Extracted Text
+                                                  │
+                                                  ▼
+                                            Text Chunking
+                                                  │
+                                                  ▼
+                                         Embedding Generation
+                                                  │
+                                                  ▼
+                                           Chroma Vector DB
+                                                  │
+                      ┌────────────────────────────┴────────────────────────────┐
+                      ▼                                                         ▼
+                Dense Retrieval                                           BM25 Retrieval
+                      │                                                         │
+                      └──────────────────────────┬──────────────────────────────┘
+                                                 ▼
+                                         Hybrid Retriever
+                                                 │
+                                                 ▼
+                                     Cross-Encoder Reranker
+                                                 │
+                                                 ▼
+                                      Context Construction
+                                                 │
+                                                 ▼
+                                       Prompt Engineering
+                                                 │
+                                                 ▼
+                                             Groq LLM
+                                                 │
+                                                 ▼
+                                    Grounded AI Response
+                                                 │
+                                                 ▼
+                                             Citations
 ```
+---
 
-                User
+## Detailed Architecture
 
-                  │
+```text
 
-                  ▼
+Refer Folder
+ * ProdPilot_Architectures
 
-            FastAPI Backend
-
-                  │
-
-                  ▼
-
-         Upload Production Documents
-
-                  │
-
-                  ▼
-
-        Chunking + Embedding Pipeline
-
-                  │
-
-                  ▼
-
-             ChromaDB Vector Store
-
-                  │
-
-                  ▼
-
-           Semantic Retrieval (RAG)
-
-                  │
-
-                  ▼
-
-           Prompt Engineering
-
-                  │
-
-                  ▼
-
-               Groq LLM
-
-                  │
-
-                  ▼
-
-         Grounded AI Response
-
-```
 
 ---
 
 # 📂 Project Structure
 
-```
-
-ProdPilot-AI
+```text
+ProdPilot-AI/
 │
-├── app
-│ ├── api
-│ ├── core
-│ ├── services
-│ ├── models
-│ ├── registry
-│ └── main.py
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── database/
+│   ├── evaluation/
+│   ├── models/
+│   ├── registry/
+│   ├── services/
+│   ├── storage/
+│   ├── utils/
+│   └── main.py
 │
-├── documents
-├── tests
+├── frontend/              (Version 2)
+├── documents/
+├── tests/
 ├── requirements.txt
 ├── README.md
 └── LICENSE
-
 ```
 
 ---
 
 # 🛠 Tech Stack
 
-### Backend
+## Backend
 
 - Python
 - FastAPI
+- SQLAlchemy
+- PostgreSQL
 
-### AI / LLM
+---
+
+## AI
 
 - LangChain (LCEL)
 - Groq LLM
-- Prompt Engineering
 - Retrieval-Augmented Generation (RAG)
+- Prompt Engineering
 
-### Vector Database
+---
+
+## Retrieval
+
+- Hybrid Search
+- Dense Retrieval
+- BM25
+- Cross-Encoder Reranker
+
+---
+
+## Vector Database
 
 - ChromaDB
 
-### Embeddings
+---
 
-- Sentence Transformers
-
-### OCR
+## OCR
 
 - PaddleOCR
+- OpenCV
 
-### Document Processing
+---
 
-- PyPDF
-- Pillow
+## Evaluation
 
-### Future
+- LangSmith
+- Custom Evaluation Framework
 
-- LangGraph
-- PostgreSQL
-- SQLAlchemy
+---
+
+## Frontend (Version 2)
+
 - React
+- Tailwind CSS
+
+---
+
+## Deployment (Version 2)
+
 - Docker
 
 ---
+
+## Future Technologies
+
+- LangGraph
+- Kubernetes
+- Prometheus
+- Grafana
+- Cloud Deployment
+
+---
+
+# 📊 Evaluation Results
+
+## Production Benchmark
+
+**40 Production Support Questions**
+
+### Question Categories
+
+| Category            | Count |
+|---------------------|------:|
+| Single-document     | 18    |
+| Cross-document      | 8     |
+| Unknown / No-answer | 7     |
+| Out-of-scope        | 5     |
+| Ambiguous           | 2     |
+
+---
+
+### Runtime
+
+| Metric      | Result |
+|-------------|-------:|
+| Error Rate  | 0%     |
+| P50 Latency | 0.64 s |
+| P99 Latency | 4.83 s |
+
+---
+
+### Retrieval Performance
+
+| Metric      | Result |
+|-------------|-------:|
+| Recall@K    | 86.42% |
+| Precision@K | 35.93% |
+| Hit Rate    | 92.59% |
+
+---
+
+### Citation Performance
+
+| Metric             | Result |
+|--------------------|-------:|
+| Citation Recall    | 86.42% |
+| Citation Precision | 35.93% |
+
+---
+
+### Answer Accuracy Evaluation
+
+
+| Questions  | Correct | Incorrect | Accuracy  |
+|------------|---------|-----------|----------:|
+| 40         | 32      | 8         | 80.00%    |    
+
+
 
 # ⚙ Installation
 
 Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/ProdPilot-AI.git
+git clone https://github.com/dhruvvdhar/ProdPilot-AI.git
 ```
 
-Create virtual environment
+Create a virtual environment
 
 ```bash
 python -m venv venv
 ```
 
-Activate virtual environment
+Activate the virtual environment
 
 Windows
 
@@ -228,19 +367,21 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Create `.env`
+Create a `.env` file
 
 ```env
 GROQ_API_KEY=your_api_key
+DATABASE_URL=your_database_url
+SECRET_KEY=your_secret_key
 ```
 
-Run ingestion
+Run document ingestion
 
 ```bash
 python -m tests.test_ingest_documents
 ```
 
-Run application
+Run the backend
 
 ```bash
 python main.py
@@ -248,12 +389,12 @@ python main.py
 
 ---
 
-# 🚀 Roadmap
+# 🗺 Roadmap
 
 ## ✅ Version 1
 
-- RAG Pipeline
-- OCR
+- Enterprise RAG Pipeline
+- OCR Support
 - Semantic Search
 - ChromaDB
 - Prompt Engineering
@@ -263,28 +404,36 @@ python main.py
 ## 🚧 Version 2
 
 - Multi-user SaaS Platform
-- Authentication
-- LangGraph Memory
-- Chat History
+- JWT Authentication
+- Chat Management
 - React Frontend
-- Docker
+- Docker Containerization
+- Responsive Chat Experience
 
 ---
 
-## 🔮 Version 3
+## 🔜 Version 3
 
+- LangGraph Memory
 - Agent Mode
 - Tool Calling
-- Kubernetes
-- Grafana
-- Prometheus
-- Cloud APIs
+- Structured Outputs
+- Context Engineering
+- Streaming Responses
 
 ---
 
-## 🌍 Version 4
+## 🔮 Version 4
 
 Enterprise AI Production Support Platform
+
+- Kubernetes Integration
+- Grafana Integration
+- Prometheus Integration
+- Cloud Deployment
+- Observability
+- CI/CD Pipelines
+- Autonomous Incident Investigation
 
 ---
 
@@ -300,4 +449,4 @@ This project is licensed under the MIT License.
 
 AI Engineer | Generative AI | Machine Learning | Production AI Systems
 
-Currently building **ProdPilot AI**, an enterprise AI-powered Production Support Platform.
+Currently building **ProdPilot AI**, an enterprise-grade AI-powered Production Support Platform focused on Retrieval-Augmented Generation (RAG), Hybrid Search, and the future of Agentic AI systems.

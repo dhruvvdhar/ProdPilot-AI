@@ -1,0 +1,35 @@
+                        USER
+                          │
+                          ▼
+                  React Frontend (Coming)
+                          │
+                     REST API (FastAPI)
+                          │
+         ┌────────────────┴─────────────────┐
+         │                                  │
+         ▼                                  ▼
+ Authentication                    Chat / Upload API
+         │                                  │
+         └───────────────┬──────────────────┘
+                         ▼
+                   RAG Service
+                         │
+      ┌──────────────────┼──────────────────┐
+      │                  │                  │
+      ▼                  ▼                  ▼
+ Hybrid Retrieval     Prompt Builder    Guardrails
+      │                                   │
+      ▼                                   ▼
+ BM25 + Dense                     Off-topic Detection
+      │
+      ▼
+ Cross Encoder Reranker
+      │
+      ▼
+ Context
+      │
+      ▼
+ LLM (Groq)
+      │
+      ▼
+ Final Answer + Citations

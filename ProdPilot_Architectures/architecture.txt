@@ -1,0 +1,31 @@
+User
+   │
+   ▼
+React UI
+   │
+FastAPI
+   │
+┌──────────────────────────────────────────┐
+│              ProdPilot AI                │
+│                                          │
+│ Upload Pipeline                          │
+│  • OCR                                   │
+│  • Chunking                              │
+│  • Embeddings                            │
+│  • ChromaDB                              │
+│  • BM25                                  │
+│                                          │
+│ Query Pipeline                           │
+│  • Hybrid Retrieval                      │
+│  • CrossEncoder Reranker                 │
+│  • Prompt Builder                        │
+│  • Guardrails                            │
+│  • Groq LLM                              │
+│                                          │
+│ Evaluation                               │
+│  • LangSmith                             │
+│  • Retrieval Eval                        │
+│  • Citation Eval                         │
+│  • Hallucination Eval                    │
+│  • Answer Accuracy                       │
+└──────────────────────────────────────────┘
