@@ -155,11 +155,11 @@ Answer Accuracy Evaluation
 
 Questions : 40
 
-Correct   : 32
+Correct   : 36
 
-Incorrect : 8
+Incorrect : 4
 
-Accuracy  : 80.00%
+Accuracy  : 90.00%
 
 
 ======================================================================

@@ -330,12 +330,25 @@ ProdPilot-AI/
 
 ---
 
-### Answer Accuracy Evaluation
+======================================================================
+Answer Accuracy Evaluation
+======================================================================
+Questions : 40
+Correct   : 36
+Incorrect : 4
+Accuracy  : 90.00%
 
 
-| Questions  | Correct | Incorrect | Accuracy  |
-|------------|---------|-----------|----------:|
-| 40         | 32      | 8         | 80.00%    |    
+======================================================================
+Hallucination Evaluation
+======================================================================
+Questions             : 40
+Grounded Answers      : 37
+Hallucinated Answers  : 3
+Groundedness Score    : 92.50%
+Hallucination Rate    : 7.50%
+
+
 
 
 
