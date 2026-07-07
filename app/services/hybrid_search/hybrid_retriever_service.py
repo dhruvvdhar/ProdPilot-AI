@@ -25,10 +25,12 @@ class HybridRetrieverService:
     def retrieve(
         self,
         query: str,
+        user_id: int,
     ) -> list[Document]:
 
         dense_documents = self._dense.retrieve(
             query=query,
+            user_id=user_id,
             top_k=settings.DENSE_TOP_K,
         )
         # print("===== DENSE =====")
@@ -38,6 +40,7 @@ class HybridRetrieverService:
 
         bm25_documents = bm25_service.retrieve(
             query=query,
+            user_id=user_id,
             top_k=settings.BM25_TOP_K,
         )
         # print("===== BM25 =====")

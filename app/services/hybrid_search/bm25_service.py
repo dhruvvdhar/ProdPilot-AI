@@ -47,6 +47,7 @@ class BM25Service:
     def retrieve(
         self,
         query: str,
+        user_id:str,
         top_k: int,
     ) -> list[Document]:
 
@@ -62,12 +63,21 @@ class BM25Service:
             key=lambda x: x[1],
             reverse=True,
         )
+        filtered = []
+        
+        for document, _ in ranked:
 
-        return [
-            document
-            for document, _
-            in ranked[:top_k]
-        ]
+            if (
+                document.metadata.get("user_id")
+                != user_id
+            ):
+                continue
+
+            filtered.append(document)
+
+            if len(filtered) >= top_k:
+                break
+        return filtered
 
     def save_index(self):
 

@@ -57,6 +57,7 @@ class ChatService:
 
         rag_response = self._rag.ask(
             question=question,
+            user_id=current_user.id,
             history=history,
         )
 
@@ -122,6 +123,7 @@ class ChatService:
 
         for event in self._rag.stream(
             question=question,
+            user_id=current_user.id,
             history=history,
         ):
 

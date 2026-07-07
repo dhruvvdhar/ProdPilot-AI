@@ -39,6 +39,7 @@ class RetrieverService:
     def retrieve(
         self,
         query: str,
+        user_id:str,
         top_k: int = 5,
     ) -> List[Document]:
 
@@ -49,6 +50,9 @@ class RetrieverService:
         results = self._chroma_service.collection.query(
             query_embeddings=[query_embedding],
             n_results=top_k,
+            where={
+                "user_id": user_id,
+            },
             include=[
                 "documents",
                 "metadatas",

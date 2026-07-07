@@ -57,10 +57,12 @@ class RAGService:
     def _retrieve_documents(
         self,
         question: str,
+        user_id: int,
     ) -> list[Document]:
 
         documents = self._retriever.retrieve(
-            query=question
+            query=question,
+            user_id=user_id,
         )
 
         documents = self._reranker.rerank(
@@ -85,11 +87,13 @@ class RAGService:
     def ask(
         self,
         question: str,
+        user_id: int,
         history: str = "",
     ):
 
         documents = self._retrieve_documents(
-            question
+            question,
+            user_id,
         )
 
         if not documents:
@@ -119,11 +123,13 @@ class RAGService:
     def stream(
         self,
         question: str,
+        user_id: int,
         history: str = "",
     ):
 
         documents = self._retrieve_documents(
-            question
+            question,
+            user_id,
         )
 
         if not documents:
