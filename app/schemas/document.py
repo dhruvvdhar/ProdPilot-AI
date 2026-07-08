@@ -18,6 +18,19 @@ class DocumentResponse(BaseModel):
     file_size: int
     uploaded_at: datetime
 
+    # Additive fields (non-breaking): expose existing
+    # pipeline-status columns already present on the
+    # Document model so the frontend can render real
+    # ingestion progress instead of placeholder data.
+    parse_status: str = "pending"
+    embedding_status: str = "pending"
+    vectorstore_status: str = "pending"
+    vector_count: int = 0
+    chunk_count: int = 0
+    error_message: str | None = None
+    processing_started_at: datetime | None = None
+    processing_completed_at: datetime | None = None
+
     model_config = ConfigDict(
         from_attributes=True
     )

@@ -17,6 +17,8 @@ from app.schemas.conversation import (
     ConversationCreate,
     ConversationResponse,
 )
+from app.schemas.message import MessageResponse
+from app.crud.message import get_messages_by_conversation
 from app.services.conversation.conversation_service import (
     conversation_service,
 )
@@ -94,6 +96,38 @@ def get_conversation(
         )
 
     return conversation
+
+
+@router.get(
+    "/{conversation_id}/messages",
+    response_model=list[MessageResponse],
+)
+def list_conversation_messages(
+    conversation_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Retrieve every message belonging to a conversation
+    owned by the current user, ordered oldest to newest.
+    """
+
+    conversation = conversation_service.get(
+        db,
+        conversation_id,
+        current_user,
+    )
+
+    if conversation is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Conversation not found.",
+        )
+
+    return get_messages_by_conversation(
+        db,
+        conversation_id,
+    )
 
 
 @router.delete(
