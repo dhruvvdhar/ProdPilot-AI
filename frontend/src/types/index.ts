@@ -72,6 +72,7 @@ export interface MessageResponse {
   role: string;
   content: string;
   created_at: string;
+  citations: Citation[];
 }
 
 // ---------------------------------------------------------------------------

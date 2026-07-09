@@ -12,6 +12,7 @@ from app.services.rag.rag_service import RAGService
 from app.core.exceptions import ConversationNotFoundException
 from app.services.citations.citation_service import citation_service
 from app.services.guardrails import guardrail_service
+import json
 
 class ChatService:
     """
@@ -73,6 +74,9 @@ class ChatService:
                 conversation_id=conversation_id,
                 role="assistant",
                 content=answer,
+                citations=json.dumps(
+                    [c.model_dump() for c in citations]
+                ),
             ),
         )
 
@@ -144,12 +148,14 @@ class ChatService:
             documents
         )
 
+        citations_payload = [
+            citation.model_dump()
+            for citation in citations
+        ]
+
         yield {
             "type": "citations",
-            "data": [
-                citation.model_dump()
-                for citation in citations
-            ],
+            "data": citations_payload,
         }
 
         create_message(
@@ -158,6 +164,7 @@ class ChatService:
                 conversation_id=conversation_id,
                 role="assistant",
                 content=assistant_answer,
+                citations=json.dumps(citations_payload),
             ),
         )
         

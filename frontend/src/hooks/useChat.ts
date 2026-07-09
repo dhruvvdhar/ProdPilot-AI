@@ -12,6 +12,7 @@ function fromServerMessage(message: MessageResponse): ChatMessage {
     role: message.role === "assistant" ? "assistant" : "user",
     content: message.content,
     created_at: message.created_at,
+    citations: message.citations && message.citations.length > 0 ? message.citations : undefined,
   };
 }
 

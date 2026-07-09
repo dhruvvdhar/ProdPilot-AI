@@ -55,6 +55,11 @@ class Message(Base):
         nullable=False,
     )
 
+    citations = Column(
+        Text,
+        nullable=True,
+    )
+
     conversation = relationship(
         "Conversation",
         back_populates="messages",

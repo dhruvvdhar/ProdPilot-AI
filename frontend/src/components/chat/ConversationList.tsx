@@ -15,6 +15,13 @@ import {
 import { useChatUiStore } from "@/store/chatUiStore";
 import type { ConversationResponse } from "@/types";
 
+function safeFormatDistance(dateString: string): string {
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return "";
+  return formatDistanceToNow(date, { addSuffix: true });
+}
+
+
 interface ConversationListProps {
   activeId: number | null;
   onSelect: (conversation: ConversationResponse) => void;
@@ -166,9 +173,7 @@ export function ConversationList({ activeId, onSelect }: ConversationListProps) 
                     <button onClick={() => onSelect(conversation)} className="min-w-0 flex-1 text-left">
                       <span className="block truncate font-medium">{conversation.title}</span>
                       <span className="block truncate text-xs text-slate-400">
-                        {formatDistanceToNow(new Date(conversation.updated_at), {
-                          addSuffix: true,
-                        })}
+                        {safeFormatDistance(conversation.updated_at)}
                       </span>
                     </button>
                   )}
