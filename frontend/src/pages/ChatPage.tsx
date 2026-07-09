@@ -1,34 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ConversationList } from "@/components/chat/ConversationList";
 import { ChatWindow } from "@/components/chat/ChatWindow";
 import { useConversationMessages, useConversations } from "@/hooks/useConversations";
 import { useChat } from "@/hooks/useChat";
-import type { ConversationResponse } from "@/types";
+import { useChatUiStore } from "@/store/chatUiStore";
 
 export function ChatPage() {
   const { data: conversations } = useConversations();
-  const [activeConversation, setActiveConversation] = useState<ConversationResponse | null>(
-    null,
-  );
+  const activeConversationId = useChatUiStore((s) => s.activeConversationId);
+  const setActiveConversationId = useChatUiStore((s) => s.setActiveConversationId);
 
-  // Default to the most recent conversation on first load.
+  // Only auto-select the most recent conversation if nothing has ever
+  // been picked yet — this no longer re-runs every time the page remounts.
   useEffect(() => {
-    if (!activeConversation && conversations && conversations.length > 0) {
-      setActiveConversation(conversations[0]);
+    if (!activeConversationId && conversations && conversations.length > 0) {
+      setActiveConversationId(conversations[0].id);
     }
-  }, [conversations, activeConversation]);
+  }, [conversations, activeConversationId, setActiveConversationId]);
+
+  const activeConversation = conversations?.find((c) => c.id === activeConversationId) ?? null;
 
   const { data: history, isLoading: isLoadingHistory } = useConversationMessages(
-    activeConversation?.id ?? null,
+    activeConversationId,
   );
 
-  const { messages, isSending, send, stop } = useChat(activeConversation?.id ?? null, history);
+  const { messages, isSending, send, stop } = useChat(activeConversationId, history);
 
   return (
     <div className="flex h-full min-h-0 w-full">
       <ConversationList
-        activeId={activeConversation?.id ?? null}
-        onSelect={setActiveConversation}
+        activeId={activeConversationId}
+        onSelect={(conversation) => setActiveConversationId(conversation.id)}
       />
       <ChatWindow
         conversation={activeConversation}

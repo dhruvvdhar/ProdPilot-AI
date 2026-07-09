@@ -13,6 +13,7 @@ from app.crud.conversation import (
     delete_conversation,
     get_conversation,
     get_user_conversations,
+    rename_conversation
 )
 from app.models.conversation import Conversation
 from app.models.user import User
@@ -86,6 +87,28 @@ class ConversationService:
             db,
             conversation,
         )
+
+    def rename(
+        self,
+        db: Session,
+        conversation: Conversation,
+        title: str,
+    ) -> Conversation:
+        """
+        Rename a conversation.
+        """
+
+        title = title.strip()
+
+        if not title:
+            raise ValueError("Title cannot be empty.")
+
+        return rename_conversation(
+            db,
+            conversation,
+            title,
+        )
+    
 
     def touch(
         self,

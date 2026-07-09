@@ -24,17 +24,29 @@ const RULES: { label: string; test: (pw: string) => boolean }[] = [
 export function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  // Note: internally still called "username" because that's what the
+  // backend column/field is named — only the on-screen label changes.
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
   const allRulesPass = RULES.every((rule) => rule.test(password));
+  const passwordsMatch = confirmPassword.length === 0 || confirmPassword === password;
+  const showMismatch = confirmPassword.length > 0 && confirmPassword !== password;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrors([]);
+
+    if (password !== confirmPassword) {
+      setErrors(["Passwords do not match."]);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -56,12 +68,12 @@ export function RegisterPage() {
     <AuthLayout title="Create your account" subtitle="Start troubleshooting with ProdPilot AI.">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <Input
-          label="Username"
-          autoComplete="username"
+          label="Full Name"
+          autoComplete="name"
           required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="jane.doe"
+          placeholder="Jane Doe"
         />
         <Input
           label="Email"
@@ -80,6 +92,16 @@ export function RegisterPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
+        />
+        <Input
+          label="Confirm Password"
+          type="password"
+          autoComplete="new-password"
+          required
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="••••••••"
+          error={showMismatch ? "Passwords don't match." : undefined}
         />
 
         {password.length > 0 && (
@@ -114,7 +136,7 @@ export function RegisterPage() {
           type="submit"
           className="mt-2 w-full"
           isLoading={isSubmitting}
-          disabled={!allRulesPass || !username || !email}
+          disabled={!allRulesPass || !username || !email || !passwordsMatch || !confirmPassword}
         >
           Create account
         </Button>

@@ -46,3 +46,16 @@ export function useDeleteConversation() {
     onError: (error: Error) => toast.error(error.message),
   });
 }
+
+export function useRenameConversation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, title }: { id: number; title: string }) =>
+      conversationsApi.rename(id, title),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: conversationKeys.all });
+    },
+    onError: (error: Error) => toast.error(error.message),
+  });
+}

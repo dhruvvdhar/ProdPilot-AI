@@ -28,3 +28,10 @@ class ConversationResponse(BaseModel):
     model_config = {
         "from_attributes": True,
     }
+
+class ConversationUpdate(BaseModel):
+    """
+    Rename an existing conversation.
+    """
+
+    title: str

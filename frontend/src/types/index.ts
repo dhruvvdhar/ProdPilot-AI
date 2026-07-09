@@ -57,6 +57,10 @@ export interface ConversationCreate {
   title?: string | null;
 }
 
+export interface ConversationUpdate {
+  title: string;
+}
+
 // ---------------------------------------------------------------------------
 // Messages
 // ---------------------------------------------------------------------------

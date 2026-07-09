@@ -1,10 +1,14 @@
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import clsx from "clsx";
-import { FileText, AlertTriangle } from "lucide-react";
+import { FileText, AlertTriangle, ChevronDown, BookOpen } from "lucide-react";
 import type { ChatMessage } from "@/types";
 
 export function MessageBubble({ message }: { message: ChatMessage }) {
   const isUser = message.role === "user";
+  const [sourcesOpen, setSourcesOpen] = useState(false);
+
+  const citationCount = message.citations?.length ?? 0;
 
   return (
     <div className={clsx("flex w-full", isUser ? "justify-end" : "justify-start")}>
@@ -39,21 +43,43 @@ export function MessageBubble({ message }: { message: ChatMessage }) {
           </div>
         )}
 
-        {message.citations && message.citations.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1.5 border-t border-slate-100 pt-2">
-            {message.citations.map((citation, idx) => (
-              <span
-                key={`${citation.filename}-${idx}`}
-                className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-600"
-                title={citation.filename}
-              >
-                <FileText className="h-3 w-3" />
-                {citation.filename}
-                {citation.page !== null && citation.page !== undefined && (
-                  <span className="text-slate-400">· p.{citation.page}</span>
+        {citationCount > 0 && (
+          <div className="mt-2 border-t border-slate-100 pt-2">
+            <button
+              onClick={() => setSourcesOpen((v) => !v)}
+              className="flex items-center gap-1.5 rounded-md px-1.5 py-1 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-50 hover:text-slate-700"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              Sources ({citationCount})
+              <ChevronDown
+                className={clsx(
+                  "h-3.5 w-3.5 transition-transform",
+                  sourcesOpen && "rotate-180",
                 )}
-              </span>
-            ))}
+              />
+            </button>
+
+            {sourcesOpen && (
+              <div className="mt-1.5 flex flex-col gap-1 animate-fade-in">
+                {message.citations?.map((citation, idx) => (
+                  <div
+                    key={`${citation.filename}-${idx}`}
+                    className="flex items-center gap-2 rounded-md bg-slate-50 px-2.5 py-1.5 text-xs text-slate-600"
+                  >
+                    <span className="flex h-4 w-4 flex-shrink-0 items-center justify-center rounded bg-slate-200 text-[10px] font-medium text-slate-500">
+                      {idx + 1}
+                    </span>
+                    <FileText className="h-3.5 w-3.5 flex-shrink-0 text-slate-400" />
+                    <span className="truncate">{citation.filename}</span>
+                    {citation.page !== null && citation.page !== undefined && (
+                      <span className="ml-auto flex-shrink-0 text-slate-400">
+                        p.{citation.page}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

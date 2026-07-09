@@ -97,9 +97,21 @@ def stream_chat(
 
         except ValueError as e:
 
-            raise HTTPException(
-                status_code=400,
-                detail=str(e),
+            # NOTE: we cannot raise HTTPException here — by this point
+            # the 200 response has already started, and Starlette can't
+            # change the status code mid-stream (that's what caused the
+            # "response already started" crash). Instead we emit a clean
+            # SSE error event and let the stream close normally.
+            yield (
+                "event: error\n"
+                f"data: {json.dumps(str(e))}\n\n"
+            )
+
+        except Exception:
+
+            yield (
+                "event: error\n"
+                f"data: {json.dumps('Something went wrong while generating a response.')}\n\n"
             )
 
     return StreamingResponse(

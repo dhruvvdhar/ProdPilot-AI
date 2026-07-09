@@ -24,6 +24,7 @@ class GuardrailService:
         r"bypass",
         r"forget previous",
     ]
+
     def __init__(self):
         self._retriever = RetrieverService()
 
@@ -75,7 +76,6 @@ class GuardrailService:
                 raise ValueError(
                     "Prompt injection attempt detected."
                 )
-    
-        
+
 
 guardrail_service = GuardrailService()

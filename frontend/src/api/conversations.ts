@@ -29,4 +29,12 @@ export const conversationsApi = {
     );
     return data;
   },
+
+  async rename(conversationId: number, title: string): Promise<ConversationResponse> {
+    const { data } = await apiClient.patch<ConversationResponse>(
+      `/conversations/${conversationId}`,
+      { title },
+    );
+    return data;
+  },
 };

@@ -16,6 +16,7 @@ from app.models.user import User
 from app.schemas.conversation import (
     ConversationCreate,
     ConversationResponse,
+    ConversationUpdate,
 )
 from app.schemas.message import MessageResponse
 from app.crud.message import get_messages_by_conversation
@@ -96,6 +97,47 @@ def get_conversation(
         )
 
     return conversation
+
+
+
+@router.patch(
+    "/{conversation_id}",
+    response_model=ConversationResponse,
+)
+def rename_conversation(
+    conversation_id: int,
+    request: ConversationUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Rename a conversation.
+    """
+
+    conversation = conversation_service.get(
+        db,
+        conversation_id,
+        current_user,
+    )
+
+    if conversation is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Conversation not found.",
+        )
+
+    try:
+        return conversation_service.rename(
+            db,
+            conversation,
+            request.title,
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=422,
+            detail=str(e),
+        )
+
 
 
 @router.get(

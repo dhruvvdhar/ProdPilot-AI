@@ -62,6 +62,22 @@ def get_user_conversations(
     )
 
 
+def rename_conversation(
+    db: Session,
+    conversation: Conversation,
+    title: str,
+) -> Conversation:
+    """
+    Rename a conversation.
+    """
+
+    conversation.title = title
+    db.commit()
+    db.refresh(conversation)
+
+    return conversation
+
+
 def delete_conversation(
     db: Session,
     conversation: Conversation,

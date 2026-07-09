@@ -12,6 +12,7 @@ export const chatApi = {
 export type StreamEvent =
   | { type: "token"; data: string }
   | { type: "citations"; data: Citation[] }
+  | { type: "error"; data: string }
   | { type: "done" };
 
 /**
@@ -88,6 +89,8 @@ export async function* streamChat(
           yield { type: "token", data: parsed as string };
         } else if (eventType === "citations") {
           yield { type: "citations", data: parsed as Citation[] };
+        } else if (eventType === "error") {
+          yield { type: "error", data: parsed as string };
         }
       } catch {
         /* ignore malformed frame */

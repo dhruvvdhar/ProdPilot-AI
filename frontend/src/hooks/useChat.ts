@@ -71,6 +71,11 @@ export function useChat(conversationId: number | null, history: MessageResponse[
             setMessages((prev) =>
               prev.map((m) => (m.id === assistantId ? { ...m, citations: event.data } : m)),
             );
+          } else if (event.type === "error") {
+            // Backend-emitted error frame (e.g. off-topic / guardrail
+            // rejection) — surface it as a clean error bubble instead
+            // of throwing a generic network error.
+            throw new ApiError(event.data);
           }
         }
 
@@ -88,7 +93,7 @@ export function useChat(conversationId: number | null, history: MessageResponse[
         setMessages((prev) =>
           prev.map((m) =>
             m.id === assistantId
-              ? { ...m, pending: false, error: true, content: m.content || message }
+              ? { ...m, pending: false, error: true, content: m.content ? m.content : message }
               : m,
           ),
         );
